@@ -1,0 +1,28 @@
+name: Build Node.js PR
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: false
+        type: string
+        default: "26"
+
+      build-command:
+        required: false
+        type: string
+        default: "npm run build"
+
+jobs:
+  build:
+    if: startsWith(github.head_ref, 'feature/') || startsWith(github.head_ref, 'bugfix/')
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: RoyCaroJE/actions/actions/setup-node-npm@v1
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - run: ${{ inputs.build-command }}
