@@ -1,0 +1,55 @@
+name: Spring PR Build
+
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        required: false
+        type: string
+        default: "21"
+
+      build-command:
+        required: false
+        type: string
+        default: "mvn -B -ntp clean verify"
+
+      postgres-version:
+        required: false
+        type: string
+        default: "15"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:${{ inputs.postgres-version }}
+
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd "pg_isready -U test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/test
+      SPRING_DATASOURCE_USERNAME: test
+      SPRING_DATASOURCE_PASSWORD: test
+
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: RoyCaroJE/actions/actions/setup-java-maven@v1.1
+        with:
+          java-version: ${{ inputs.java-version }}
+
+      - run: ${{ inputs.build-command }}
