@@ -1,0 +1,17 @@
+name: Setup Node & NPM installation
+
+inputs:
+  node-version:
+    required: false
+    default: "26"
+
+runs:
+  using: composite
+
+  steps:
+    - uses: actions/setup-node@v6.4.0
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - shell: bash
+      run: npm install
