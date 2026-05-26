@@ -24,7 +24,7 @@ Sets up a Node.js environment with npm dependencies for your GitHub Actions work
 To use any of these actions in your workflow, reference them in your GitHub Actions workflow file:
 
 ```yaml
-- uses: your-username/actions/setup-node-npm@main
+- uses: RoyCaroJE/actions/setup-node-npm@main
 ```
 
 For more details and available inputs for each action, see the README in the respective action folder.
