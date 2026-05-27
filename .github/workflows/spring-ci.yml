@@ -51,7 +51,7 @@ jobs:
       SPRING_DATASOURCE_PASSWORD: test
 
     steps:
-      - uses: actions/checkout@v6.0.4
+      - uses: actions/checkout@v6.0.2
 
       - uses: RoyCaroJE/actions/actions/setup-java-maven@v1
         with:
@@ -65,7 +65,7 @@ jobs:
     needs: test
 
     steps:
-      - uses: actions/checkout@v6.0.4
+      - uses: actions/checkout@v6.0.2
 
       - uses: RoyCaroJE/actions/actions/setup-java-maven@v1
         with:
