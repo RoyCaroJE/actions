@@ -29,7 +29,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:{{ inputs.postgres-version }}
+        image: postgres:${{ inputs.postgres-version }}
 
         env:
           POSTGRES_USER: test
